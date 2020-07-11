@@ -12,14 +12,8 @@ esphome:
 
 wifi:
   ssid: "charlottesweb_iot"
-  password: "crazydog@130amw"
+  password: "XXXXXXXXXXXX"
   reboot_timeout: 5min
-#  use_address: "192.168.1.115"
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-#  ap:
-#    ssid: "Weatherstation Fallback Hotspot"
-#    password: "cyooaXLJcIcE"
 
 captive_portal:
 
