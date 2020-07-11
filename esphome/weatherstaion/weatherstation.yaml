@@ -1,0 +1,145 @@
+substitutions:
+  display_name: ws
+    
+esphome:
+  name: weatherstation
+  platform: ESP8266
+  board: d1_mini_pro
+  includes:
+    - UVLightSensor.h
+  libraries:
+    - "https://github.com/sparkfun/SparkFun_VEML6075_Arduino_Library"
+
+wifi:
+  ssid: "charlottesweb_iot"
+  password: "crazydog@130amw"
+  reboot_timeout: 5min
+#  use_address: "192.168.1.115"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+#  ap:
+#    ssid: "Weatherstation Fallback Hotspot"
+#    password: "cyooaXLJcIcE"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+status_led:
+  pin:
+    number: GPIO2
+    inverted: True
+
+
+#mqtt:
+#  broker: 192.168.1.7
+#  username: taulhome
+#  password: 855karen
+
+
+i2c:
+  sda: 4
+  scl: 5
+  scan: True
+  id: bus_a
+  frequency: 10kHz
+  
+sensor:
+  - platform: bme280
+    temperature:
+      id: "bme280_temperature"
+      oversampling: 16x
+    pressure:
+      id: "bme280_pressure"
+    humidity:
+      name: ${display_name} Humi
+    address: 0x76
+    i2c_id: bus_a
+    update_interval: 10s
+  - platform: pulse_counter
+    id: tipping_bucket
+    pin:
+      number: GPIO12
+      inverted: True
+    name: ${display_name} Rain
+    internal_filter: 1ms
+    unit_of_measurement: "in/min"
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.0102362
+#  - platform: integration
+#    name: "Accum Rainfall"
+#    sensor: tipping_bucket
+#    time_unit: min
+  - platform: pulse_counter
+    id: anemometer
+    name: ${display_name} Wind
+    pin:
+      number: GPIO13
+      inverted: True
+    unit_of_measurement: mph
+    filters:
+      - multiply: 0.0535056
+    update_interval: 10s
+  - platform: uptime
+    name: ${display_name} Uptime
+  - platform: wifi_signal
+    name: ${display_name} WiFi Signal
+    update_interval: 60s
+  - platform: adc
+    pin: A0
+    name: ${display_name} Battery Level
+    filters:
+      - lambda: return ((x-.465)/.317) * 100;
+    unit_of_measurement: "%"
+    update_interval: 60s
+  - platform: sht3xd
+    temperature:
+      name: ${display_name} Temp2
+      filters:
+        - lambda: return x * (9.0/5.0) + 32.0;
+      unit_of_measurement: "°F"
+    humidity:
+      name: ${display_name} Relative Humity
+      id: sht31d_humity
+    address: 0x44
+    i2c_id: bus_a
+    update_interval: 10s
+  - platform: template
+    name: ${display_name} Pres
+    icon: 'mdi:gauge'
+    lambda: |-
+      const float STANDARD_ALTITUDE = 140.0;
+      const float HPA2INHG = 0.02953;
+      return (id(bme280_pressure).state / powf(1 - ((0.0065 * STANDARD_ALTITUDE) / (id(bme280_temperature).state + (0.0065 * STANDARD_ALTITUDE) + 273.15)), 5.257)) * HPA2INHG; 
+    unit_of_measurement: "in-hg"
+    update_interval: 10s
+  - platform: template
+    name: ${display_name} Temp
+    lambda: |-
+      return id(bme280_temperature).state * (9.0/5.0) + 32.0;
+    unit_of_measurement: "°F"
+    update_interval: 10s
+  - platform: custom
+    lambda: |-
+      auto veml6075 = new VEML6075CustomSensor();
+      App.register_component(veml6075);
+      return {veml6075->uva_sensor, veml6075->uvb_sensor, veml6075->uvindex_sensor};
+    sensors:
+    - name: "UVA"
+      id: zelva_uva
+      unit_of_measurement: "µW/cm²"
+      accuracy_decimals: 1
+    - name: "UVB"
+      id: zelva_uvb
+      unit_of_measurement: "µW/cm²"
+      accuracy_decimals: 1
+    - name: "UVIndex"
+      id: zelva_uvi
+      accuracy_decimals: 1
