@@ -36,3 +36,23 @@ sensor data to MQTT. A simple generic weewx driver was written to
 transfer directly from the MQTT topics into the weewx loop packet.
 By using MQTT topic names that come directly from weewx, the driver
 is small and simple.
+
+## Unsupported Sensors
+
+At the time of this writing, ESPHome supports neither the *VEML6075* or the *MAX44009*.
+
+### MAX44009
+A native ESPHome component was written for the MAX44009 sensor given the [difficulties
+people were having](https://github.com/esphome/feature-requests/issues/29) incorporating an external arduino library. This native component has NOT been submitted to ESPHome for merging as it is
+incomplete. The code to read and calculate the LUX reading came from [dantudose github](https://github.com/dantudose/MAX44009).
+
+Adding the native code for this sensor under the ESPHome directory was not obvious besides submitting
+a pull request to have the component added to ESHome's github. Turns out you can create a directory
+under the ESPHome root directory named *custom_components*. Now copy the max44009 directory under
+the custom_components directory.
+
+
+### VEM6075
+The VEML6075 was added as a custom component in the *weatherstation.yaml* 
+configuration file. This required writing the *UVLightSensor.h* and adding the *includes* and *libraries*
+list items in the weatherstation.yaml file.
