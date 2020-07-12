@@ -15,9 +15,13 @@ Basic direction for this weatherstation came from [digiblur](https://www.youtube
 * UV Index using VEML6075 UV
 * Ambient Light using  MAX44009
 
-![](./images/ws_base.png "DIY Weather Station on DIY PVC pipe platform")
-
-![](./images/ws_anemometer.png "DIY Weather Station Anemometer") <!-- .element height="30%" width="30%" -->
+<table>
+  <tr>
+  <td> <img src="./images/ws_base.jpg" alt="WS" title="DIY Weather Station on DIY PVC pipe platform" width="200" height="300" /></td>
+  <td> <img src="./images/ws_anemometer.png" alt="WS2" title="DIY Weather Station Anemometer" width="200" height="300" /></td>
+  </tr>
+</table>
+	
 This is a remote unattended weather station. Thus included the following
 to allow it to be standalone albeit it does connect into my local wifi.
 
