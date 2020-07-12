@@ -16,7 +16,8 @@ Basic direction for this weatherstation came from [digiblur](https://www.youtube
 * Ambient Light using  MAX44009
 
 ![](./images/ws_base.png "DIY Weather Station on DIY PVC pipe platform")
-![](./images/ws_anemometer.png "DIY Weather Station Anemometer")
+
+![](./images/ws_anemometer.png "DIY Weather Station Anemometer") <!-- .element height="30%" width="30%" -->
 This is a remote unattended weather station. Thus included the following
 to allow it to be standalone albeit it does connect into my local wifi.
 
