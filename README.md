@@ -19,6 +19,7 @@ Basic direction for this weatherstation came from [digiblur](https://www.youtube
   <tr>
   <td> <img src="./images/ws_base.jpg" alt="WS" title="DIY Weather Station on DIY PVC pipe platform" width="200" height="300" /></td>
   <td> <img src="./images/ws_anemometer.png" alt="WS2" title="DIY Weather Station Anemometer" width="200" height="300" /></td>
+  <td> <img src="./images/ws_mpuboard.jpg" alt="WS3" title="Breadboard w/ Wemos D1 mini pro" width="200" height="300" /></td>
   </tr>
 </table>
 	
