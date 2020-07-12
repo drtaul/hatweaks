@@ -28,7 +28,7 @@ to allow it to be standalone albeit it does connect into my local wifi.
 * Wemo D1 mini pro with exernal antenna
 * 18650 batter with P4056 based charging circuit connected to 1.5 watt solar panel.
 
-The [BME280 has known issues with reliably reporting humity reading](has known issues with reliably reporting humity reading). 
+The [BME280 has known issues with reliably reporting humity reading](https://thecavepearlproject.org/2015/06/15/developing-an-arduino-based-weather-station/). 
 
 	DHT11 and DHT12 is not trusted in general absolutely.
 	AHT10 and AHT15 – also not trusted, slow and inaccurate, but maybe better than DHTxx
