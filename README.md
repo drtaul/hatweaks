@@ -15,21 +15,35 @@ Basic direction for this weatherstation came from [digiblur](https://www.youtube
 * UV Index using VEML6075 UV
 * Ambient Light using  MAX44009
 
+![](./images/ws_base.png "DIY Weather Station on DIY PVC pipe platform")
+![](./images/ws_anemometer.png "DIY Weather Station Anemometer")
 This is a remote unattended weather station. Thus included the following
 to allow it to be standalone albeit it does connect into my local wifi.
 
 * Wemo D1 mini pro with exernal antenna
-* 18650 batter with charging circuit connected to 1.5 watt solar panel.
+* 18650 batter with P4056 based charging circuit connected to 1.5 watt solar panel.
 
-The BME280 has known issues with reliably reporting humity reading. This
-is why the SHT31-D is included. It also provides a double reference for
+The [BME280 has known issues with reliably reporting humity reading](has known issues with reliably reporting humity reading). 
+
+	DHT11 and DHT12 is not trusted in general absolutely.
+	AHT10 and AHT15 – also not trusted, slow and inaccurate, but maybe better than DHTxx
+	AM2320 – relatively not that bad (in compare to DHT and AHT)
+	BME280 and BME680 is always higher temperature and lower humidity (I suspect self-heating) I think those sensors are not for uncalibrated DIY projects)
+	HDC1080 – wrong (high) humidity
+	HDC2080 – wrong (high) temperature
+	SHT2x – OK
+	SHT3x – OK
+	SHTC1 and SHTC3 – OK
+	SHT85 – Perfect
+
+This is why the SHT31-D is included. It also provides a double reference for
 measuring the temperature. Experience with other commonly using temperature
 sensors have proven to be much less accurate e.g. DHT22.
 
 ## Weewx
 
 As part of this project, a local [weewx](http://weewx.com/) server was
-set up alongside Home Assistant on a UNRAID based server using docker.
+set up alongside Home Assistant on a UNRAID based server using Docker.
 
 Home Assistant automations were created to forward the weather station
 sensor data to MQTT. A simple generic weewx driver was written to 
